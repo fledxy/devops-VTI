@@ -1,0 +1,8 @@
+#cloud-config
+package_update: true
+packages:
+   - nginx
+runcmd:
+   - systemctl start nginx
+   - systemctl enable nginx
+   - echo "<h1>Welcome to Nginx from Terraform (Cloud-Init)!</h1>" > /usr/share/nginx/html/index.html
