@@ -29,17 +29,19 @@ jobs:
           cli_version: 1.6.3
       - name: Terraform init
         run: terraform init
-
-      - name: Terraform plan for prod env
+  
+      - name: Terraform plan for prod environment 
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform plan -var-file=envs/prod.tfvars
-      - name: Terraform plan for dev env
+        run: terraform plan -var-file=envs/main.tfvars
+          
+      - name: Terraform plan for dev environment 
         if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
         run: terraform plan -var-file=envs/dev.tfvars
-
-      - name: Terraform apply for pod
-        if: github.event_name == 'apply'
-        run: terraform apply --auto-approve -var-file=envs/prod.tfvars
-      - name: Terraform apply for pod
-        if: github.event_name == 'apply'
-        run: terraform apply --auto-approve -var-file=envs/dev.tfvars
+  
+      - name: Terraform apply for prod environment 
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve -var-file=envs/main.tfvars
+          
+      - name: Terraform apply for dev environment 
+        if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+        run: terraform apply -auto-approve -var-file=envs/dev.tfvars
