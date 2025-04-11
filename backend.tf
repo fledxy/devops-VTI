@@ -1,13 +1,13 @@
-terraform { 
-  cloud { 
+# # terraform { 
+# #   cloud { 
     
-    organization = "fledxy" 
+# #     organization = "fledxy" 
 
-    workspaces { 
-      name = "dev" 
-    } 
-  } 
-}
+# #     workspaces { 
+# #       name = "dev" 
+# #     } 
+# #   } 
+# # }
 
 # terraform {
 #   backend "s3" {
