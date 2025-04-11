@@ -1,21 +1,21 @@
-name: Terraform destroy
+name: Terraform Destroy 
 
 on:
   workflow_dispatch:
-    inputs:
-        confirmation:
-            description: 'Type "Confirm" to destroy all terraform'
-            required: true
-            default: ''
+    inputs: 
+      confirmation: 
+        description: 'Type "Confirm" to destroy all the terraform infrastructure resources'
+        required: true 
+        default: '' 
 
 permissions:
-  contents: read
   id-token: write
+  contents: read
 
 jobs:
   destroy:
     runs-on: ubuntu-latest
-    # enviroment: ${{ github.ref_name }}
+    environment: ${{ github.ref_name }} #get correct the environment <dev or main >
     steps: 
       - name: Checkout 
         uses: actions/checkout@v4
@@ -34,11 +34,11 @@ jobs:
         run: terraform init -backend-config="key=github_ci/infra/${{ github.ref_name }}-provision.tfstate"
   
       - name: Terraform destroy plan
-        if: ${{ inputs.confirmation = 'Confirm' }}
+        if: ${{ inputs.confirmation == 'Confirm' }}
         run: terraform plan -destroy -var-file=envtfvars/${{ github.ref_name }}.tfvars
           
       - name: Terraform destroy
-        if: ${{ inputs.confirmation = 'Confirm' }}
+        if: ${{ inputs.confirmation == 'Confirm' }}
         run: terraform destroy -auto-approve -var-file=envtfvars/${{ github.ref_name }}.tfvars
           
       - name: Check Confirmation
