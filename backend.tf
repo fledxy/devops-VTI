@@ -1,14 +1,3 @@
-# terraform { 
-#   cloud { 
-    
-#     organization = "fledxy" 
-
-#     workspaces { 
-#       name = "dev" 
-#     } 
-#   } 
-# }
-
 terraform {
   backend "s3" {
     bucket = "fledxytfbucket"
