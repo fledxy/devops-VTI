@@ -13,11 +13,11 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
+    steps: 
+      - name: Checkout 
         uses: actions/checkout@v4
-
-      - name: Configuration the Aws Cred
+      
+      - name: Configuration the AWS Credential 
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::376129850044:role/provision-infra
