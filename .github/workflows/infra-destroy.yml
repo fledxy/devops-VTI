@@ -7,7 +7,7 @@ on:
             description: 'Type "Confirm" to destroy all terraform'
             required: true
             default: ''
-            
+
 permissions:
   contents: read
   id-token: write
