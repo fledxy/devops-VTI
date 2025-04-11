@@ -1,51 +1,51 @@
-name: Infrastructure provisions
-on:
-  push:
-    branches:
-      - main
-      - dev
-  pull_request:
-    branches:
-      - main
-permissions:
-  contents: read
-  id-token: write
-jobs:
+# name: Infrastructure provisions
+# on:
+#   push:
+#     branches:
+#       - main
+#       - dev
+#   pull_request:
+#     branches:
+#       - main
+# permissions:
+#   contents: read
+#   id-token: write
+# jobs:
   
-  validating_tf:
-    runs-on: ubuntu-latest
+#   validating_tf:
+#     runs-on: ubuntu-latest
 
-  terraform:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout 
-        uses: actions/checkout@v4
+#   terraform:
+#     runs-on: ubuntu-latest
+#     steps: 
+#       - name: Checkout 
+#         uses: actions/checkout@v4
       
-      - name: Configuration the AWS Credential 
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::376129850044:role/provision-infra
-          aws-region: ap-southeast-1
-          role-session-name: provision-infra
-      - name: Setup terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          cli_version: 1.6.3
-      - name: Terraform init
-        run: terraform init
+#       - name: Configuration the AWS Credential 
+#         uses: aws-actions/configure-aws-credentials@v4
+#         with:
+#           role-to-assume: arn:aws:iam::376129850044:role/provision-infra
+#           aws-region: ap-southeast-1
+#           role-session-name: provision-infra
+#       - name: Setup terraform
+#         uses: hashicorp/setup-terraform@v3
+#         with:
+#           cli_version: 1.6.3
+#       - name: Terraform init
+#         run: terraform init
   
-      - name: Terraform plan for prod environment 
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform plan -var-file=envtfvars/main.tfvars
+#       - name: Terraform plan for prod environment 
+#         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+#         run: terraform plan -var-file=envtfvars/main.tfvars
           
-      - name: Terraform plan for dev environment 
-        if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
-        run: terraform plan -var-file=envtfvars/dev.tfvars
+#       - name: Terraform plan for dev environment 
+#         if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+#         run: terraform plan -var-file=envtfvars/dev.tfvars
   
-      - name: Terraform apply for prod environment 
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve -var-file=envtfvars/main.tfvars
+#       - name: Terraform apply for prod environment 
+#         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+#         run: terraform apply -auto-approve -var-file=envtfvars/main.tfvars
           
-      - name: Terraform apply for dev environment 
-        if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
-        run: terraform apply -auto-approve -var-file=envtfvars/dev.tfvars
+#       - name: Terraform apply for dev environment 
+#         if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+#         run: terraform apply -auto-approve -var-file=envtfvars/dev.tfvars
