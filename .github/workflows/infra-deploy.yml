@@ -20,7 +20,7 @@ jobs:
       - name: Configuration the Aws Cred
         uses: aws-action/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::376129850044:role/provision-infra
+          ole-to-assume: arn:aws:iam::376129850044:role/provision-infra
           aws-region: ap-southeast-1
           role-session-name: github-svc-tf-infra
       - name: Setup terraform
