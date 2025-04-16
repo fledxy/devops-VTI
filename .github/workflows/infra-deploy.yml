@@ -12,8 +12,8 @@ permissions:
   id-token: write
 jobs:
   
-  validating_tf:
-    runs-on: ubuntu-latest
+#   validating_tf:
+#     runs-on: ubuntu-latest
 
   terraform:
     runs-on: ubuntu-latest
